@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="VideoPlayerView">
+        <attr name="setPlayIcon" format="reference"/>
+        <attr name="setPauseIcon" format="reference"/>
+    </declare-styleable>
+
+</resources>

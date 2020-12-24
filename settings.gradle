@@ -1,0 +1,3 @@
+include ':SmartExoPlayer'
+include ':app'
+rootProject.name = "player-view"
