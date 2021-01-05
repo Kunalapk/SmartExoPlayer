@@ -24,6 +24,7 @@ dependencies {
 ```
 
 
+## layout example
 ```xml
 <com.kunalapk.smartexoplayer.SmartExoPlayerView
 	android:id="@+id/playerView"
