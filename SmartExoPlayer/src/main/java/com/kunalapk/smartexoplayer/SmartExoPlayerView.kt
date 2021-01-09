@@ -48,6 +48,7 @@ class SmartExoPlayerView : ConstraintLayout{
     }
 
     private fun addPlayerView(){
+        removeAllViews()
         player = SimpleExoPlayer.Builder(context).setLoadControl(DefaultLoadControl()).setTrackSelector(DefaultTrackSelector()).build()
         playerView = PlayerView(context)
         playerView?.player = player
