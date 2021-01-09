@@ -198,7 +198,7 @@ class SmartExoPlayerView : ConstraintLayout{
         }
     }
 
-    private fun setPosterUrl(url:String?){
+    fun setPosterUrl(url:String?){
         if(url!=null){
             if(posterView==null){
                 posterView = AppCompatImageView(context)
