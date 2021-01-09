@@ -53,7 +53,7 @@ class SmartExoPlayerView : ConstraintLayout{
         playerView?.player = player
         playerView?.useController = false
         player?.addListener(playerListener)
-        addView(playerView)
+        addView(playerView,getConstraintLayoutCenterParams())
     }
 
 
