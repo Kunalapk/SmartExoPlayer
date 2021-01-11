@@ -36,11 +36,12 @@ class SmartExoPlayerView : ConstraintLayout{
     private var pauseIconView:AppCompatImageView? = null
     private var posterView:AppCompatImageView? = null
 
-    constructor(context: Context):super(context){ }
+    constructor(context: Context):super(context){
+        addPlayerView()
+    }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.VideoPlayerView, 0, 0)
-
 
         addPlayerView()
         setPlayIcon(typedArray.getDrawable(R.styleable.VideoPlayerView_setPlayIcon))
@@ -55,6 +56,10 @@ class SmartExoPlayerView : ConstraintLayout{
         playerView?.useController = false
         player?.addListener(playerListener)
         addView(playerView,getConstraintLayoutCenterParams())
+    }
+
+    fun playWhenReady(playWhenReady:Boolean){
+        player?.playWhenReady = playWhenReady
     }
 
 
