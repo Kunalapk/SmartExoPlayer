@@ -106,7 +106,7 @@ class SmartExoPlayerView : ConstraintLayout{
         }
     }
 
-    private fun setPlayIcon(drawable:Drawable?){
+    fun setPlayIcon(drawable:Drawable?){
         if(playIconView == null && drawable!=null){
             playIconView = AppCompatImageView(context)
             initControllerView()
@@ -116,7 +116,7 @@ class SmartExoPlayerView : ConstraintLayout{
         }
     }
 
-    private fun setPauseIcon(drawable: Drawable?){
+    fun setPauseIcon(drawable: Drawable?){
         if(pauseIconView == null && drawable!=null){
             pauseIconView = AppCompatImageView(context)
             initControllerView()
