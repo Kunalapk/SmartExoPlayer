@@ -16,6 +16,7 @@ import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.ui.PlayerView
 import com.kunalapk.smartexoplayer.extensions.loadImage
 import com.kunalapk.smartexoplayer.utils.SmartLogger
@@ -62,6 +63,9 @@ class SmartExoPlayerView : ConstraintLayout{
         player?.playWhenReady = playWhenReady
     }
 
+    fun setResizeMode(mode:Int){
+        playerView?.setResizeMode(mode)
+    }
 
     private fun getConstraintLayoutCenterParams():ConstraintLayout.LayoutParams{
         return getConstraintLayoutCenterParams(null,null)
