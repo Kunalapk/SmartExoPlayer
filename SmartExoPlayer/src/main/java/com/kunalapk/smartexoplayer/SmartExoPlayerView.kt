@@ -71,6 +71,14 @@ class SmartExoPlayerView : ConstraintLayout{
         return getConstraintLayoutCenterParams(null,null)
     }
 
+    fun setLoop(repeatMode:Int){
+        player?.repeatMode = repeatMode
+    }
+
+    fun enableDisableVolume(volumeState: Float){
+        player?.volume = volumeState
+    }
+
     private fun getConstraintLayoutCenterParams(mWidth:Int?,mHeight:Int?):ConstraintLayout.LayoutParams{
         return ConstraintLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT).apply {
             if(mWidth!=null){
@@ -85,6 +93,7 @@ class SmartExoPlayerView : ConstraintLayout{
             endToEnd = ConstraintSet.PARENT_ID
         }
     }
+
 
     private val playerListener:Player.EventListener = object:Player.EventListener{
 
