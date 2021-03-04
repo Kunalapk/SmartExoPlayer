@@ -74,7 +74,7 @@ class SmartExoPlayerView : ConstraintLayout{
         player?.repeatMode = repeatMode
     }
 
-    fun enableDisableVolume(volumeState: Float){
+    fun setVolumeState(volumeState: Float){
         player?.volume = volumeState
     }
 
