@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.google.android.exoplayer2.DefaultLoadControl
 import com.google.android.exoplayer2.ExoPlaybackException
@@ -70,7 +71,7 @@ class SmartExoPlayerView : ConstraintLayout{
         return getConstraintLayoutCenterParams(null,null)
     }
 
-    fun setLoop(repeatMode:Int){
+    fun setRepeatMode(repeatMode:Int){
         player?.repeatMode = repeatMode
     }
 
@@ -196,13 +197,17 @@ class SmartExoPlayerView : ConstraintLayout{
         }
     }
 
-
     fun loadMedia(mediaSource: MediaSource){
         player?.prepare(mediaSource)
     }
 
     fun loadMedia(mediaSource: MediaSource,posterUrl:String?){
-        setPosterUrl(url = posterUrl)
+        setPoster(url = posterUrl)
+        player?.prepare(mediaSource)
+    }
+
+    fun loadMedia(mediaSource: MediaSource,drawable: Int){
+        setPoster(drawable = drawable)
         player?.prepare(mediaSource)
     }
 
@@ -216,7 +221,19 @@ class SmartExoPlayerView : ConstraintLayout{
         }
     }
 
-    fun setPosterUrl(url:String?){
+    fun setPoster(drawable: Int){
+        if(posterView==null){
+            posterView = AppCompatImageView(context)
+        }
+        if(childCount>0){
+            addView(posterView,1,getConstraintLayoutCenterParams())
+        }else{
+            addView(posterView,childCount,getConstraintLayoutCenterParams())
+        }
+        posterView?.setImageDrawable(ContextCompat.getDrawable(context,drawable))
+    }
+
+    fun setPoster(url:String?){
         if(url!=null){
             if(posterView==null){
                 posterView = AppCompatImageView(context)
