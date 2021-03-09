@@ -145,6 +145,13 @@ class SmartExoPlayerView : ConstraintLayout{
         }
     }
 
+    fun isPlaying():Boolean{
+        return when(player?.isPlaying){
+            true -> true
+            else -> false
+        }
+    }
+
     private fun getViewChildCount(constraintLayout:ConstraintLayout?):Int{
         if(constraintLayout!=null){
             return constraintLayout.childCount
