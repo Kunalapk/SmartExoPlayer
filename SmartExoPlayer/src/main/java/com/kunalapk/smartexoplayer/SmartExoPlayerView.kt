@@ -34,8 +34,11 @@ class SmartExoPlayerView : ConstraintLayout{
     private var controllerContainer:ConstraintLayout? = null
     private var controllerView:FrameLayout? = null
     private var playIconView:AppCompatImageView? = null
+    private var muteIconView:AppCompatImageView? = null
+    private var unMuteIconView:AppCompatImageView? = null
     private var pauseIconView:AppCompatImageView? = null
     private var posterView:AppCompatImageView? = null
+    private var clMuteUnMuteContainer:ConstraintLayout? = null
 
     constructor(context: Context):super(context){
         addPlayerView()
@@ -57,6 +60,7 @@ class SmartExoPlayerView : ConstraintLayout{
         playerView?.useController = false
         player?.addListener(playerListener)
         addView(playerView,getConstraintLayoutCenterParams())
+
     }
 
     fun playWhenReady(playWhenReady:Boolean){
@@ -94,6 +98,35 @@ class SmartExoPlayerView : ConstraintLayout{
         }
     }
 
+    /*private fun getConstraintLayoutParams(mWidth:Int?,mHeight:Int?,layoutParams: LayoutParams):ConstraintLayout.LayoutParams{
+        return ConstraintLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT).apply {
+            if(mWidth!=null){
+                width = mWidth
+            }
+            if(mHeight!=null){
+                height = mHeight
+            }
+            if(bottomToBottomParams!=null){
+                bottomToBottom = bottomToBottomParams
+            }
+            if(topToTopParams!=null){
+                topToTop = topToTopParams
+            }
+            if(startToStartParams!=null){
+                startToStart = startToStartParams
+            }
+            if(endToEndParams!=null){
+                endToEnd = endToEndParams
+            }
+            setPadding(0,0,25,25)
+
+            if(bottomToBottomParams==null &&topToTopParams==null &&startToStartParams==null &&endToEndParams==null){
+                bottomToBottom = ConstraintSet.PARENT_ID
+                endToEnd = ConstraintSet.PARENT_ID
+            }
+        }
+    }*/
+
 
     private val playerListener:Player.EventListener = object:Player.EventListener{
 
@@ -113,6 +146,11 @@ class SmartExoPlayerView : ConstraintLayout{
         override fun onIsPlayingChanged(isPlaying: Boolean) {
             super.onIsPlayingChanged(isPlaying)
             togglePlayAndPauseIcon(isPlaying)
+            if(isPlaying){
+                clMuteUnMuteContainer?.visibility = View.VISIBLE
+            }else{
+                clMuteUnMuteContainer?.visibility = View.GONE
+            }
             SmartLogger.debug(TAG,"onIsPlayingChanged - $isPlaying")
 
         }
@@ -131,6 +169,40 @@ class SmartExoPlayerView : ConstraintLayout{
             controllerContainer?.addView(playIconView,getViewChildCount(controllerContainer),getConstraintLayoutCenterParams(180,180))
             playIconView?.setImageDrawable(drawable)
             playIconView?.setOnClickListener(onClickListener)
+        }
+    }
+
+    fun setMuteUnMuteIcon(muteIcon:Drawable?,unMuteIcon:Drawable?,layoutParams: LayoutParams){
+        if(clMuteUnMuteContainer == null){
+            clMuteUnMuteContainer = ConstraintLayout(context)
+            initControllerView()
+            controllerContainer?.addView(clMuteUnMuteContainer,getViewChildCount(controllerContainer),layoutParams)
+            clMuteUnMuteContainer?.visibility = View.GONE
+            setMuteIcon(muteIcon, ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,ConstraintLayout.LayoutParams.WRAP_CONTENT))
+            setUnMuteIcon(unMuteIcon,ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,ConstraintLayout.LayoutParams.WRAP_CONTENT))
+        }
+    }
+
+    private fun setMuteIcon(drawable:Drawable?,layoutParams: LayoutParams){
+        if(muteIconView == null && drawable!=null){
+            muteIconView = AppCompatImageView(context)
+            clMuteUnMuteContainer?.addView(muteIconView,getViewChildCount(clMuteUnMuteContainer),layoutParams)
+            muteIconView?.apply{
+                setImageDrawable(drawable)
+                setOnClickListener(onClickListener)
+                visibility = View.GONE
+            }
+        }
+    }
+
+    private fun setUnMuteIcon(drawable:Drawable?,layoutParams: LayoutParams){
+        if(unMuteIconView == null && drawable!=null){
+            unMuteIconView = AppCompatImageView(context)
+            clMuteUnMuteContainer?.addView(unMuteIconView,getViewChildCount(clMuteUnMuteContainer),layoutParams)
+            unMuteIconView?.apply{
+                setImageDrawable(drawable)
+                setOnClickListener(onClickListener)
+            }
         }
     }
 
@@ -167,6 +239,12 @@ class SmartExoPlayerView : ConstraintLayout{
             pauseIconView -> {
                 togglePlayAndPause(false)
             }
+            muteIconView -> {
+                toggleMuteUnMuteIcon(false)
+            }
+            unMuteIconView -> {
+                toggleMuteUnMuteIcon(true)
+            }
             controllerView -> {
                 toggleControllerView()
             }
@@ -192,6 +270,7 @@ class SmartExoPlayerView : ConstraintLayout{
         }
     }
 
+
     private fun togglePlayAndPauseIcon(isPlaying:Boolean){
         if(isPlaying){
             playIconView?.visibility = View.GONE
@@ -201,6 +280,18 @@ class SmartExoPlayerView : ConstraintLayout{
             playIconView?.visibility = View.VISIBLE
             pauseIconView?.visibility = View.GONE
             posterView?.visibility = View.GONE
+        }
+    }
+
+    private fun toggleMuteUnMuteIcon(isAudioMute: Boolean){
+        if(!isAudioMute){
+            muteIconView?.visibility = View.GONE
+            unMuteIconView?.visibility = View.VISIBLE
+            setVolumeState(1f)
+        }else{
+            muteIconView?.visibility = View.VISIBLE
+            unMuteIconView?.visibility = View.GONE
+            setVolumeState(0f)
         }
     }
 
@@ -263,6 +354,8 @@ class SmartExoPlayerView : ConstraintLayout{
         player = null
         playerView = null
         playIconView = null
+        muteIconView = null
+        unMuteIconView = null
         pauseIconView = null
         posterView = null
     }
