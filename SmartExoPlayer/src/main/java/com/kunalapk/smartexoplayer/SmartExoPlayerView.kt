@@ -140,7 +140,6 @@ class SmartExoPlayerView : ConstraintLayout{
         override fun onLoadingChanged(isLoading: Boolean) {
             super.onLoadingChanged(isLoading)
             SmartLogger.debug(TAG,"onLoadingChanged - $isLoading")
-
         }
 
         override fun onIsPlayingChanged(isPlaying: Boolean) {
@@ -181,6 +180,10 @@ class SmartExoPlayerView : ConstraintLayout{
             setMuteIcon(muteIcon, ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,ConstraintLayout.LayoutParams.WRAP_CONTENT))
             setUnMuteIcon(unMuteIcon,ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,ConstraintLayout.LayoutParams.WRAP_CONTENT))
         }
+    }
+
+    fun addPlayerListener(playerEventListener:Player.EventListener){
+        player?.addListener(playerEventListener)
     }
 
     private fun setMuteIcon(drawable:Drawable?,layoutParams: LayoutParams){
