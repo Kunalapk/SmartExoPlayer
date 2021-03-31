@@ -13,6 +13,14 @@
 		android:background="@color/black"
 		app:setPlayIcon="@drawable/ic_play_button"
 		app:setPauseIcon="@drawable/ic_pause"
+		app:layout_constraintTop_toTopOf="parent"
 		/>
+
+	<!--<com.google.android.exoplayer2.ui.DefaultTimeBar
+		android:id="@+id/defaultTimeBar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/black"
+		app:layout_constraintBottom_toBottomOf="@+id/playerView"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
