@@ -236,6 +236,7 @@ class SmartExoPlayerView : ConstraintLayout{
             return 0
         }
     }
+
     private val onClickListener: View.OnClickListener = View.OnClickListener {
         when(it){
             playIconView -> {
@@ -342,18 +343,7 @@ class SmartExoPlayerView : ConstraintLayout{
     }
 
     fun setPoster(url:String?){
-        if(url!=null){
-            if(posterView==null){
-                posterView = AppCompatImageView(context)
-            }
-            if(childCount>0){
-                addView(posterView,1,getConstraintLayoutCenterParams())
-            }else{
-                addView(posterView,childCount,getConstraintLayoutCenterParams())
-            }
-            posterView?.loadImage(url)
-            posterView?.scaleType = ImageView.ScaleType.CENTER_CROP
-        }
+        setPoster(url,ImageView.ScaleType.CENTER_CROP)
     }
 
     fun setPoster(url:String?, scaleType:ImageView.ScaleType){
