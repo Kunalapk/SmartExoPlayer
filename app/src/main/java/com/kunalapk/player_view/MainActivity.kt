@@ -3,6 +3,7 @@ package com.kunalapk.player_view
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         val mediaSource = ExtractorMediaSource.Factory(DefaultDataSourceFactory(this, userAgent))
             .setExtractorsFactory(DefaultExtractorsFactory()).createMediaSource(Uri.parse("https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4?_=1"))
 
-        smartExoPlayerView.loadMedia(mediaSource, "https://www.w3schools.com/html/pic_trulli.jpg")
+        smartExoPlayerView.loadMedia(mediaSource, "https://www.w3schools.com/html/pic_trulli.jpg", ImageView.ScaleType.CENTER_CROP)
     }
 
     private val playerListener: Player.EventListener = object: Player.EventListener{

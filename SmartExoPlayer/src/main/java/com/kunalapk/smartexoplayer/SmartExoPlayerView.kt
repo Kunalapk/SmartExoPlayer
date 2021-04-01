@@ -6,6 +6,8 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.SeekBar
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -307,6 +309,11 @@ class SmartExoPlayerView : ConstraintLayout{
         player?.prepare(mediaSource)
     }
 
+    fun loadMedia(mediaSource: MediaSource, posterUrl:String?, posterScaleType: ImageView.ScaleType){
+        setPoster(url = posterUrl , scaleType = posterScaleType)
+        player?.prepare(mediaSource)
+    }
+
     fun loadMedia(mediaSource: MediaSource,drawable: Int){
         setPoster(drawable = drawable)
         player?.prepare(mediaSource)
@@ -345,6 +352,22 @@ class SmartExoPlayerView : ConstraintLayout{
                 addView(posterView,childCount,getConstraintLayoutCenterParams())
             }
             posterView?.loadImage(url)
+            posterView?.scaleType = ImageView.ScaleType.CENTER_CROP
+        }
+    }
+
+    fun setPoster(url:String?, scaleType:ImageView.ScaleType){
+        if(url!=null){
+            if(posterView==null){
+                posterView = AppCompatImageView(context)
+            }
+            if(childCount>0){
+                addView(posterView,1,getConstraintLayoutCenterParams())
+            }else{
+                addView(posterView,childCount,getConstraintLayoutCenterParams())
+            }
+            posterView?.loadImage(url)
+            posterView?.scaleType = scaleType
         }
     }
 
