@@ -102,6 +102,13 @@ class SmartExoPlayerView : PlayerView{
         }
     }
 
+    fun isPlaying():Boolean{
+        return when(player?.isPlaying){
+            true -> true
+            else -> false
+        }
+    }
+    
     fun setVolumeState(volumeState: Float){
         mPlayer?.volume = volumeState
     }
