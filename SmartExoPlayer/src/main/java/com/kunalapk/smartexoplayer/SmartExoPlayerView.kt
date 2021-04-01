@@ -124,6 +124,10 @@ class SmartExoPlayerView : PlayerView{
         mPlayer?.prepare(mediaSource)
     }
 
+    fun setRepeatMode(repeatMode:Int){
+        player?.repeatMode = repeatMode
+    }
+
     fun loadMedia(mediaSource: MediaSource, posterUrl:String?, posterScaleType: ImageView.ScaleType){
         setPoster(url = posterUrl , scaleType = posterScaleType)
         mPlayer?.prepare(mediaSource)
