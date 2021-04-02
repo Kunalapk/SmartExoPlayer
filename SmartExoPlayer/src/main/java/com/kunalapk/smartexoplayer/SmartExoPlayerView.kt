@@ -18,7 +18,6 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.PlayerView
-import com.kunalapk.smartexoplayer.extensions.loadImage
 import com.kunalapk.smartexoplayer.utils.SmartLogger
 
 class SmartExoPlayerView : PlayerView{
@@ -27,7 +26,7 @@ class SmartExoPlayerView : PlayerView{
 
     private var mPlayer:SimpleExoPlayer? = null
 
-    private var posterView:AppCompatImageView? = null
+    //private var posterView:AppCompatImageView? = null
 
     constructor(context: Context):super(context){
         addPlayerView()
@@ -81,9 +80,9 @@ class SmartExoPlayerView : PlayerView{
         override fun onIsPlayingChanged(isPlaying: Boolean) {
             super.onIsPlayingChanged(isPlaying)
             SmartLogger.debug(TAG,"onIsPlayingChanged - $isPlaying")
-            if(isPlaying){
+            /*if(isPlaying){
                 posterView?.visibility = View.GONE
-            }
+            }*/
 
         }
 
@@ -174,7 +173,7 @@ class SmartExoPlayerView : PlayerView{
     fun destroy(){
         player?.stop()
         mPlayer = null
-        posterView = null
+        //posterView = null
     }
 
 }
