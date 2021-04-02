@@ -11,13 +11,11 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
-import com.google.android.exoplayer2.DefaultLoadControl
-import com.google.android.exoplayer2.ExoPlaybackException
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.PlayerView
+import com.kunalapk.smartexoplayer.extensions.loadImage
 import com.kunalapk.smartexoplayer.utils.SmartLogger
 
 class SmartExoPlayerView : PlayerView{
@@ -26,20 +24,20 @@ class SmartExoPlayerView : PlayerView{
 
     private var mPlayer:SimpleExoPlayer? = null
 
-    //private var posterView:AppCompatImageView? = null
+    private var posterView:AppCompatImageView? = null
 
     constructor(context: Context):super(context){
         addPlayerView()
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.VideoPlayerView, 0, 0)
-
         addPlayerView()
     }
 
     private fun addPlayerView(){
-        mPlayer = SimpleExoPlayer.Builder(context).setLoadControl(DefaultLoadControl()).setTrackSelector(DefaultTrackSelector()).build()
+        if(mPlayer==null)
+            mPlayer = SimpleExoPlayer.Builder(context!!, DefaultRenderersFactory(context!!)).build()
+
         player = mPlayer
         useController = true
         mPlayer?.addListener(playerListener)
@@ -79,10 +77,9 @@ class SmartExoPlayerView : PlayerView{
 
         override fun onIsPlayingChanged(isPlaying: Boolean) {
             super.onIsPlayingChanged(isPlaying)
-            SmartLogger.debug(TAG,"onIsPlayingChanged - $isPlaying")
-            /*if(isPlaying){
+            if(isPlaying){
                 posterView?.visibility = View.GONE
-            }*/
+            }
 
         }
 
@@ -136,7 +133,7 @@ class SmartExoPlayerView : PlayerView{
     }
 
     fun setPoster(drawable: Int){
-        /*if(posterView==null){
+        if(posterView==null){
             posterView = AppCompatImageView(context)
         }
         if(childCount>0){
@@ -144,7 +141,7 @@ class SmartExoPlayerView : PlayerView{
         }else{
             addView(posterView,childCount,getConstraintLayoutCenterParams())
         }
-        posterView?.setImageDrawable(ContextCompat.getDrawable(context,drawable))*/
+        posterView?.setImageDrawable(ContextCompat.getDrawable(context,drawable))
     }
 
     fun setPoster(url:String?){
@@ -152,7 +149,7 @@ class SmartExoPlayerView : PlayerView{
     }
 
     fun setPoster(url:String?, scaleType:ImageView.ScaleType){
-        /*if(url!=null){
+        if(url!=null){
             if(posterView==null){
                 posterView = AppCompatImageView(context)
             }
@@ -163,7 +160,7 @@ class SmartExoPlayerView : PlayerView{
             }
             posterView?.loadImage(url)
             posterView?.scaleType = scaleType
-        }*/
+        }
     }
 
     fun reset(){
@@ -173,7 +170,7 @@ class SmartExoPlayerView : PlayerView{
     fun destroy(){
         player?.stop()
         mPlayer = null
-        //posterView = null
+        posterView = null
     }
 
 }
