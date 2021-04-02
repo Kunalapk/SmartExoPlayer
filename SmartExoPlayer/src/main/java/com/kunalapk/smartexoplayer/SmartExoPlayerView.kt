@@ -39,7 +39,6 @@ class SmartExoPlayerView : PlayerView{
             mPlayer = SimpleExoPlayer.Builder(context!!, DefaultRenderersFactory(context!!)).build()
 
         player = mPlayer
-        useController = true
         mPlayer?.addListener(playerListener)
     }
 
