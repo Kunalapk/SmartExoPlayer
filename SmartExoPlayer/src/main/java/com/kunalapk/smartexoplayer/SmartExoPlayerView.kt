@@ -26,11 +26,8 @@ class SmartExoPlayerView : PlayerView{
     private var TAG = javaClass.simpleName
 
     private var mPlayer:SimpleExoPlayer? = null
-    private var mPlayBackState:Int = Player.STATE_IDLE
 
     private var posterView:AppCompatImageView? = null
-    private var clMuteUnMuteContainer:ConstraintLayout? = null
-
 
     constructor(context: Context):super(context){
         addPlayerView()
@@ -68,12 +65,10 @@ class SmartExoPlayerView : PlayerView{
         }
     }
 
-    private val playerListener:Player.EventListener = object:Player.EventListener{
+    private val playerListener:Player.EventListener = object:Player.EventListener {
 
         override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
             super.onPlayerStateChanged(playWhenReady, playbackState)
-            mPlayBackState = playbackState
-
             SmartLogger.debug(TAG,"onPlayerStateChanged - $playWhenReady, ${playbackState}")
 
         }
@@ -85,13 +80,10 @@ class SmartExoPlayerView : PlayerView{
 
         override fun onIsPlayingChanged(isPlaying: Boolean) {
             super.onIsPlayingChanged(isPlaying)
+            SmartLogger.debug(TAG,"onIsPlayingChanged - $isPlaying")
             if(isPlaying){
                 posterView?.visibility = View.GONE
-                clMuteUnMuteContainer?.visibility = View.VISIBLE
-            }else{
-                clMuteUnMuteContainer?.visibility = View.GONE
             }
-            SmartLogger.debug(TAG,"onIsPlayingChanged - $isPlaying")
 
         }
 
@@ -108,7 +100,7 @@ class SmartExoPlayerView : PlayerView{
             else -> false
         }
     }
-    
+
     fun setVolumeState(volumeState: Float){
         mPlayer?.volume = volumeState
     }
@@ -120,7 +112,6 @@ class SmartExoPlayerView : PlayerView{
     fun addPlayerListener(playerEventListener:Player.EventListener){
         mPlayer?.addListener(playerEventListener)
     }
-
 
     fun loadMedia(mediaSource: MediaSource){
         mPlayer?.prepare(mediaSource)
@@ -146,7 +137,7 @@ class SmartExoPlayerView : PlayerView{
     }
 
     fun setPoster(drawable: Int){
-        if(posterView==null){
+        /*if(posterView==null){
             posterView = AppCompatImageView(context)
         }
         if(childCount>0){
@@ -154,7 +145,7 @@ class SmartExoPlayerView : PlayerView{
         }else{
             addView(posterView,childCount,getConstraintLayoutCenterParams())
         }
-        posterView?.setImageDrawable(ContextCompat.getDrawable(context,drawable))
+        posterView?.setImageDrawable(ContextCompat.getDrawable(context,drawable))*/
     }
 
     fun setPoster(url:String?){
@@ -162,7 +153,7 @@ class SmartExoPlayerView : PlayerView{
     }
 
     fun setPoster(url:String?, scaleType:ImageView.ScaleType){
-        if(url!=null){
+        /*if(url!=null){
             if(posterView==null){
                 posterView = AppCompatImageView(context)
             }
@@ -173,7 +164,7 @@ class SmartExoPlayerView : PlayerView{
             }
             posterView?.loadImage(url)
             posterView?.scaleType = scaleType
-        }
+        }*/
     }
 
     fun reset(){
