@@ -1,10 +1,8 @@
 package com.kunalapk.smartexoplayer
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
@@ -13,7 +11,6 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.MediaSource
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.PlayerView
 import com.kunalapk.smartexoplayer.extensions.loadImage
 import com.kunalapk.smartexoplayer.utils.SmartLogger
@@ -22,7 +19,8 @@ class SmartExoPlayerView : PlayerView{
 
     private var TAG = javaClass.simpleName
 
-    private var mPlayer:SimpleExoPlayer? = null
+    //private var mPlayer:SimpleExoPlayer? = null
+    private val mPlayer: SimpleExoPlayer by lazy { SimpleExoPlayer.Builder(context).build()}
 
     private var posterView:AppCompatImageView? = null
 
@@ -35,11 +33,11 @@ class SmartExoPlayerView : PlayerView{
     }
 
     private fun addPlayerView(){
-        if(mPlayer==null)
-            mPlayer = SimpleExoPlayer.Builder(context!!, DefaultRenderersFactory(context!!)).build()
+        //if(mPlayer==null)
+          //  mPlayer = SimpleExoPlayer.Builder(context!!, DefaultRenderersFactory(context!!)).build()
 
         player = mPlayer
-        mPlayer?.addListener(playerListener)
+        mPlayer.addListener(playerListener)
     }
 
     private fun getConstraintLayoutCenterParams():ConstraintLayout.LayoutParams{
@@ -97,24 +95,24 @@ class SmartExoPlayerView : PlayerView{
     }
 
     fun setVolumeState(volumeState: Float){
-        mPlayer?.volume = volumeState
+        mPlayer.volume = volumeState
     }
 
     fun playWhenReady(playWhenReady:Boolean){
-        mPlayer?.playWhenReady = playWhenReady
+        mPlayer.playWhenReady = playWhenReady
     }
 
     fun addPlayerListener(playerEventListener:Player.EventListener){
-        mPlayer?.addListener(playerEventListener)
+        mPlayer.addListener(playerEventListener)
     }
 
     fun loadMedia(mediaSource: MediaSource){
-        mPlayer?.prepare(mediaSource)
+        mPlayer.prepare(mediaSource)
     }
 
     fun loadMedia(mediaSource: MediaSource,posterUrl:String?){
         setPoster(url = posterUrl)
-        mPlayer?.prepare(mediaSource)
+        mPlayer.prepare(mediaSource)
     }
 
     fun setRepeatMode(repeatMode:Int){
@@ -123,12 +121,12 @@ class SmartExoPlayerView : PlayerView{
 
     fun loadMedia(mediaSource: MediaSource, posterUrl:String?, posterScaleType: ImageView.ScaleType){
         setPoster(url = posterUrl , scaleType = posterScaleType)
-        mPlayer?.prepare(mediaSource)
+        mPlayer.prepare(mediaSource)
     }
 
     fun loadMedia(mediaSource: MediaSource,drawable: Int){
         setPoster(drawable = drawable)
-        mPlayer?.prepare(mediaSource)
+        mPlayer.prepare(mediaSource)
     }
 
     fun setPoster(drawable: Int){
@@ -168,7 +166,7 @@ class SmartExoPlayerView : PlayerView{
 
     fun destroy(){
         player?.stop()
-        mPlayer = null
+        //mPlayer = null
         posterView = null
     }
 

@@ -11,8 +11,6 @@
 		android:layout_width="match_parent"
 		android:layout_height="300dp"
 		android:background="@color/black"
-		app:setPlayIcon="@drawable/ic_play_button"
-		app:setPauseIcon="@drawable/ic_pause"
 		app:layout_constraintTop_toTopOf="parent"
 		app:use_controller="true"
 		app:show_buffering="always"
